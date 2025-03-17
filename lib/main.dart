@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:app/widgets/navigation_bar.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main(){
   runApp(MyApp());
@@ -15,15 +17,51 @@ class MyApp extends StatelessWidget{
       // Theming Of The App
       theme: ThemeData(
         // App Color
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.yellow, brightness: Brightness.dark),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.yellow, brightness: Brightness.light),
 
         // App Bar Theming
         appBarTheme: AppBarTheme(
           elevation: 20,
-          backgroundColor: Colors.deepOrangeAccent,
+          surfaceTintColor: Colors.transparent,
+          // shadowColor: Colors.green,
+          // backgroundColor: Colors.deepOrangeAccent,
           foregroundColor: Colors.white,
-          titleTextStyle: TextStyle(fontFamily: 'poppins', fontSize: 30),
+
+          titleTextStyle: GoogleFonts.roboto(
+            color: Colors.grey
+          ),
         ),
+
+        
+        // Text Theming Of App
+        textTheme: TextTheme(
+          displayMedium: TextStyle(
+            color: Colors.green,
+            fontSize: 28,
+            backgroundColor: Colors.black,
+            decorationThickness: 20,
+            // letterSpacing: 0,
+            fontFamily: 'poppins'
+          ),
+
+          displayLarge: GoogleFonts.inter(
+            color: Colors.black,
+            fontSize: 15,
+          ),
+        ),
+
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          backgroundColor: Colors.yellow
+        ),
+
+        navigationBarTheme: NavigationBarThemeData(
+          surfaceTintColor: Colors.blue,
+          elevation: 30,
+          indicatorColor: Colors.white,
+          height: 70
+
+        ),
+
 
         // Floating Button Theming
         floatingActionButtonTheme: FloatingActionButtonThemeData(
@@ -38,7 +76,19 @@ class MyApp extends StatelessWidget{
       // The Scaffold
       home: Scaffold(
         // Page Title
-        appBar: AppBar(title: AppTitleBar(),),
+        appBar: AppBar(
+          title: AppTitleBar(),
+          actions: [
+            // Builder(
+            //   builder: (context){
+            //     // return ElevatedButton(onPressed: Scaffold.of(context).openDrawer, child: Icon(Icons.menu_rounded));
+            //   },
+            // ),
+          ],
+        ),
+
+        // Drawer
+        drawer: NavDrawer(),
 
         // Page Body
         body: AppBody(),
@@ -47,11 +97,11 @@ class MyApp extends StatelessWidget{
         floatingActionButton: FloatingActionButton(onPressed: (){}, child: Icon(Icons.add_rounded),),
 
         // Bottom Navigation Bar
-
-
+        bottomNavigationBar: NavBar(),
       ),
     );
   }
+
 }
 
 // App Title Bar Widget
@@ -60,7 +110,7 @@ class AppTitleBar extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return Text('Theming');
+    return BackdropFilter(filter: ColorFilter.srgbToLinearGamma(), child: Text('Theming'),);
   }
 }
 
@@ -75,8 +125,31 @@ class AppBody extends StatelessWidget{
       child: Column(
         spacing: 20,
         children: [
-          ListOfBoxes()
+          // Displaying List Of Boxes
+          // ListOfBoxes(),
+
+          // Displaying Text
+          MyText(),
         ],
+      ),
+    );
+  }
+}
+
+// Widget For Displaying Text
+class MyText extends StatelessWidget{
+  const MyText({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ConstrainedBox(
+      constraints: BoxConstraints(maxWidth: 400),
+      child: Text(
+          'At present students are poor writers, not because they are incapable of learning to wipline as  writing. This is true on the one hand because teachers often lack a clear theory of the relationship between writing and learning and, on the other, are concerned with the time involved in grading written work.',
+          style: Theme.of(context).textTheme.displayLarge!.copyWith(
+            letterSpacing: 0.6,
+            height: 1.38
+          ),
       ),
     );
   }
@@ -103,7 +176,7 @@ class ListOfBoxes extends StatelessWidget{
   Widget build(BuildContext context) {
     return Expanded(
       child: ListView.builder(
-        itemCount: 100,
+        itemCount: 1,
         itemBuilder: (context, index) => ContainerBoxes(),
       ),
     );
