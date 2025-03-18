@@ -28,9 +28,12 @@ class MyApp extends StatelessWidget{
           foregroundColor: Colors.white,
 
           titleTextStyle: GoogleFonts.roboto(
-            color: Colors.grey
+            color: Colors.blue,
+            fontSize: 30
           ),
         ),
+
+
 
         
         // Text Theming Of App
@@ -47,6 +50,10 @@ class MyApp extends StatelessWidget{
           displayLarge: GoogleFonts.inter(
             color: Colors.black,
             fontSize: 15,
+            textStyle: TextStyle(
+              color: Colors.blue,
+              backgroundColor: Theme.of(context).colorScheme.secondaryContainer
+            )
           ),
         ),
 
@@ -89,6 +96,7 @@ class MyApp extends StatelessWidget{
 
         // Drawer
         drawer: NavDrawer(),
+
 
         // Page Body
         body: AppBody(),
@@ -144,12 +152,20 @@ class MyText extends StatelessWidget{
   Widget build(BuildContext context) {
     return ConstrainedBox(
       constraints: BoxConstraints(maxWidth: 400),
-      child: Text(
-          'At present students are poor writers, not because they are incapable of learning to wipline as  writing. This is true on the one hand because teachers often lack a clear theory of the relationship between writing and learning and, on the other, are concerned with the time involved in grading written work.',
+      child: Padding(
+        padding: EdgeInsets.all(12),
+        child: Text(
+          textAlign: TextAlign.justify,
+          'At present students are poor writers, not because they are incapable of learning to wipe as  writing. This is true on the one hand because teachers often lack a clear theory of the relationship between writing and learning and, on the other, are concerned with the time involved in grading written work.',
           style: Theme.of(context).textTheme.displayLarge!.copyWith(
             letterSpacing: 0.6,
-            height: 1.38
+            height: 1.38,
+            color: Theme.of(context).colorScheme.primary,
+            fontWeight: FontWeight.w700,
+            fontFamily: 'poppins',
+            fontStyle: FontStyle.italic
           ),
+        ),
       ),
     );
   }
